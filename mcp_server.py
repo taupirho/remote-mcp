@@ -3,7 +3,9 @@ from fastapi import FastAPI
 from stock_tool import mcp as stock_mcp
 from flight_tool import mcp as flight_mcp
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Create a combined lifespan to manage both session managers
 @contextlib.asynccontextmanager
@@ -18,7 +20,7 @@ app = FastAPI(lifespan=lifespan)
 app.mount("/stock", stock_mcp.streamable_http_app())
 app.mount("/flight", flight_mcp.streamable_http_app())
 
-PORT = int(os.environ.get("PORT", 10000))
+PORT = int(os.getenv("PORT", "10000"))
 
 if __name__ == "__main__":
     import uvicorn
