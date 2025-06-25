@@ -18,7 +18,7 @@ app = FastAPI(lifespan=lifespan)
 app.mount("/stock", stock_mcp.streamable_http_app())
 app.mount("/flight", flight_mcp.streamable_http_app())
 
-PORT = 10000
+PORT = os.environ.get("PORT", 10000)
 
 if __name__ == "__main__":
     import uvicorn
