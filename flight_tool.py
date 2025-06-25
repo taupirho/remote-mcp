@@ -1,4 +1,6 @@
 import requests
+from dotenv import load_dotenv
+import os
 
 from mcp.server.fastmcp import FastMCP
 
@@ -17,7 +19,7 @@ def get_flight_info(flight_number):
         A dictionary containing the flight details or a message if not found.
     """
 
-    AVIATIONSTACK_API_KEY = "212ab815742e0de4e062a80f5f5220c3"
+    AVIATIONSTACK_API_KEY = os.environ.get("AVIATIONSTACK_API_KEY")
 
     print("Hello from remote-mcp!")
     params = {'access_key': AVIATIONSTACK_API_KEY, 'flight_iata': flight_number}
