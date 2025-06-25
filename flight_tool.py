@@ -40,8 +40,3 @@ def get_flight_info(flight_number):
     except Exception as e:
         print(f"❌ Exception during API call: {e}")
         return f"An error occurred while contacting the flight API: {e}"
-    
-@mcp.tool()
-def ping():
-    print("✅ ping() tool was called")
-    return "pong from Render"
