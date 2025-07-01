@@ -1,7 +1,7 @@
 import contextlib
 from fastapi import FastAPI
-from stock_tool import mcp as stock_mcp
-from flight_tool import mcp as flight_mcp
+from temp_tool import mcp as temp_mcp
+from prize_tool import mcp as prize_mcp
 import os
 from dotenv import load_dotenv
 
@@ -11,14 +11,14 @@ load_dotenv()
 @contextlib.asynccontextmanager
 async def lifespan(app: FastAPI):
     async with contextlib.AsyncExitStack() as stack:
-        await stack.enter_async_context(stock_mcp.session_manager.run())
-        await stack.enter_async_context(flight_mcp.session_manager.run())
+        await stack.enter_async_context(temp_mcp.session_manager.run())
+        await stack.enter_async_context(prize_mcp.session_manager.run())
         yield
 
 
 app = FastAPI(lifespan=lifespan)
-app.mount("/stock", stock_mcp.streamable_http_app())
-app.mount("/flight", flight_mcp.streamable_http_app())
+app.mount("/temp", temp_mcp.streamable_http_app())
+app.mount("/prize", prize_mcp.streamable_http_app())
 
 PORT = int(os.getenv("PORT", "10000"))
 
